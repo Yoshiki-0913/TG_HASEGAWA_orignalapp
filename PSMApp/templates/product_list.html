@@ -1,0 +1,61 @@
+<!-- product_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}商品一覧{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/product_list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2>商品一覧</h2>
+
+<div class="search-bar">
+    <form method="get">
+        <select name="category">
+            <option value="">カテゴリ選択</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="search" placeholder="商品検索" value="{{ request.GET.search }}">
+        <button type="submit">検索</button>
+    </form>
+</div>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+      {% if product.product_image %}
+      <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}">
+  {% else %}
+      <img src="{% static 'images/no_image.png' %}" alt="画像なし">  <!-- デフォルト画像 -->
+  {% endif %}
+        <div>
+            <input type="checkbox"> {{ product.product_name }}
+        </div>
+        <div>{{ product.unit_price }}円</div>
+    </div>
+    {% empty %}
+    <p>商品が見つかりません。</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if products.has_previous %}
+        <a href="?page={{ products.previous_page_number }}">&laquo;</a>
+    {% endif %}
+
+    {% for page_num in products.paginator.page_range %}
+        {% if products.number == page_num %}
+            <span class="current">{{ page_num }}</span>
+        {% else %}
+            <a href="?page={{ page_num }}">{{ page_num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}">&raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}

@@ -14,6 +14,7 @@ class ProductInfo(models.Model):
     category = models.ForeignKey(CategoryInfo, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    product_image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -21,12 +22,19 @@ class ProductInfo(models.Model):
         return self.product_name
 # 決済情報モデル
 class SettlementInfo(models.Model):
+    PAYMENT_METHOD_CHOICES = [
+        ('cash', '現金決済'),
+        ('card', 'カード決済'),
+    ]
     id = models.AutoField(primary_key=True)
     employee = models.ForeignKey('EmployeeInfo', on_delete=models.CASCADE)
     settlement_date = models.DateField()
     settlement_amount = models.DecimalField(max_digits=15, decimal_places=2)
-    settlement_method = models.CharField(max_length=255)
-
+    settlement_method = models.CharField(
+        max_length=255,
+        choices=PAYMENT_METHOD_CHOICES,
+        default='cash',  # デフォルト値を指定
+    )
     def __str__(self):
         return f"Settlement {self.id} by {self.employee.name}"
 # 決済商品一覧モデル

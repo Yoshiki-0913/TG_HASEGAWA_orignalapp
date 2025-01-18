@@ -1,0 +1,44 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block title %}PSMApp{% endblock %}</title>
+
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="{% static 'css/PSMApp.css' %}" rel="stylesheet">
+
+  {% block stylesheet %}{% endblock stylesheet %}
+
+</head>
+<body>
+    <header>
+        <div>PSMApp</div>
+        <div>
+          {% comment %} {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" style="color: white; text-decoration: none;">ログアウト</a>
+          {% else %}
+              <a href="{% url 'login' %}" style="color: white; text-decoration: none;">ログイン</a>
+          {% endif %} {% endcomment %}
+      </div>
+    </header>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        &copy; SAMURAI Inc.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>購入商品確認</title>
+  <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+      <nav>
+        <div>PSMApp</div>
+        <div>ログアウト</div>
+      </nav>
+    </header>
+    <main class="container m-auto">
+      <article>
+        <h2>購入商品確認</h2>
+        <section>
+          <div>ラーメン 500円</div>
+          <div>餃子 300円</div>
+        </section>
+        <div>合計： <span id="total-amount">800</span>円</div>
+      </article>
+
+      <form id="payment-form">
+        <div id="card-container"></div>
+        <button id="card-button">支払う</button>
+      </form>
+    </main>
+
+    <footer class="text-center">
+      <p>© SAMURAI Inc.</p>
+    </footer>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js
+"></script>
+<script>
+  let card;
+  document.addEventListener('DOMContentLoaded', async function () {
+    // Square Web Payments SDKの初期化
+    const payments = Square.payments("sandbox-sq0idb-OcfxFGd0SI22Y2yk_Qg1_g", "LD5KRW7R56127");
+
+    try {
+      // カード要素を初期化
+      card = await payments.card();
+      await card.attach('#card-container'); // カード情報入力用のHTML要素にアタッチ
+    } catch (e) {
+      console.error('Payment initialization failed:', e);
+      return;
+    }
+
+    // ボタンクリックでトークンを取得
+    const cardButton = document.getElementById('card-button');
+    cardButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+
+      try {
+        const result = await card.tokenize();
+        if (result.status === 'OK') {
+          const nonce = result.token;
+
+          // サーバーに送信
+          const response = await fetch('/process_payment/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}', // DjangoのCSRFトークン
+            },
+            body: JSON.stringify({
+              amount: document.getElementById('total-amount').innerText, // 合計金額
+              nonce: nonce, // Squareトークン
+            }),
+          });
+
+          const data = await response.json();
+          if (data.status === 'success') {
+            alert('支払いが成功しました！');
+          } else {
+            alert('エラーが発生しました: ' + data.message);
+          }
+        } else {
+          console.error(result.errors);
+          alert('支払いトークンの生成に失敗しました。詳細を確認してください。');
+        }
+      } catch (error) {
+        console.error('Tokenization failed:', error);
+        alert('トークン生成中にエラーが発生しました。');
+      }
+    });
+  });
+</script>
+</body>
+</html>

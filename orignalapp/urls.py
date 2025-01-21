@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from PSMApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('confirm', views.ConfirmView.as_view(), name="confirm"),
+    path('process_payment/', views.ProcessPaymentView.as_view(), name='process_payment'),  # 決済処理
 ]

@@ -6,7 +6,7 @@ from django.utils.timezone import now, timedelta
 import plotly.graph_objects as go
 from django.shortcuts import render
 
-# --- ここから棒グラフ --- #
+# --- ここから棒グラフ --- 
 class SettlementInfoAdmin(admin.ModelAdmin):
     list_display = ('employee', 'settlement_date', 'settlement_amount', 'settlement_method')
     list_filter = ('settlement_method',)

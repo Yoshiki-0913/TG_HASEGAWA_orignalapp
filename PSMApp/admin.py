@@ -1,5 +1,4 @@
 from django.contrib import admin
-<<<<<<< HEAD
 from .models import CategoryInfo, ProductInfo, SettlementInfo, SettlementProductList, EmployeeInfo
 
 class CategoryInfoAdmin(admin.ModelAdmin):
@@ -15,21 +14,15 @@ class ProductInfoAdmin(admin.ModelAdmin):
     #     return 'No Image'
 
     # product_image_tag.short_description = 'Product Image'
-class SettlementInfoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'employee', 'settlement_date', 'settlement_amount', 'settlement_method')
 
 class SettlementProductListAdmin(admin.ModelAdmin):
     list_display = ('id', 'settlement', 'product', 'created_at', 'updated_at')
 
-class EmployeeInfoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'admin_privileges', 'created_at', 'updated_at')
-
 admin.site.register(CategoryInfo, CategoryInfoAdmin)
 admin.site.register(ProductInfo, ProductInfoAdmin)
-admin.site.register(SettlementInfo, SettlementInfoAdmin)
 admin.site.register(SettlementProductList, SettlementProductListAdmin)
-admin.site.register(EmployeeInfo, EmployeeInfoAdmin)
-=======
+
+
 from .models import SettlementInfo, EmployeeInfo
 from django.urls import path
 from django.db.models import Sum
@@ -88,4 +81,4 @@ class EmployeeInfoAdmin(admin.ModelAdmin):
 
 admin.site.register(SettlementInfo, SettlementInfoAdmin)
 admin.site.register(EmployeeInfo, EmployeeInfoAdmin)
->>>>>>> f1aba63ceff0ba09c596aca8c57e2105c705a08d
+

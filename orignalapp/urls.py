@@ -15,23 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-<<<<<<< HEAD
+from django.urls import path
 from PSMApp import views
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('PSMApp.urls')),
-=======
-from django.urls import path
-from PSMApp import views
-
-urlpatterns = [
+    path('', views.ProductListView.as_view(), name='product_list'),
     path('admin/', admin.site.urls),
     path('confirm', views.ConfirmView.as_view(), name="confirm"),
     path('process_payment/', views.ProcessPaymentView.as_view(), name='process_payment'),  # 決済処理
->>>>>>> f1aba63ceff0ba09c596aca8c57e2105c705a08d
 ]
 
 # 開発環境でのメディアファイルの配信設定

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # from django.shortcuts import render
 # from django.views.generic import ListView
 # from .models import ProductInfo
@@ -7,6 +6,13 @@
 from django.views.generic import ListView
 from .models import ProductInfo, CategoryInfo
 from django.db.models import Q
+import uuid
+import json
+from django.conf import settings
+from django.http import JsonResponse
+from django.views.generic import TemplateView
+from django.views import View
+from square.client import Client
 
 class ProductListView(ListView):
     model = ProductInfo
@@ -31,14 +37,7 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = CategoryInfo.objects.all()  # カテゴリ一覧を取得
         return context
-=======
-import uuid
-import json
-from django.conf import settings
-from django.http import JsonResponse
-from django.views.generic import TemplateView
-from django.views import View
-from square.client import Client
+
 
 class ConfirmView(TemplateView):
     template_name = "confirm.html"
@@ -70,4 +69,3 @@ class ProcessPaymentView(View):
             return JsonResponse({"status": "success"})
         else:
             return JsonResponse({"status": "error", "message": result.errors}, status=400)
->>>>>>> f1aba63ceff0ba09c596aca8c57e2105c705a08d

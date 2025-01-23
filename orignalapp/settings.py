@@ -40,10 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'PSMApp',
-<<<<<<< HEAD
-    'orignalapp'
-=======
->>>>>>> f1aba63ceff0ba09c596aca8c57e2105c705a08d
 ]
 
 MIDDLEWARE = [

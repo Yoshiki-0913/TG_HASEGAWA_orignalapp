@@ -1,0 +1,8 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+  <h1>過去1週間のカード決済金額</h1>
+  <div>
+    {{ graph|safe }}
+  </div>
+  <a href="{% url 'admin:index' %}">管理画面に戻る</a>
+{% endblock %}

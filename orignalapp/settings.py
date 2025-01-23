@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 import os
 
@@ -39,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'PSMApp',
+<<<<<<< HEAD
     'orignalapp'
+=======
+>>>>>>> f1aba63ceff0ba09c596aca8c57e2105c705a08d
 ]
 
 MIDDLEWARE = [
@@ -121,7 +125,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# 静的ファイルのディレクトリ
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "PSMApp/static"),
+]
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -135,6 +144,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Square決済の実装
-SQUARE_APPLICATION_ID = 'sandbox-sq0idb-I-uo9lQsYWtltYrCGQpuYg'
-SQUARE_ACCESS_TOKEN = 'EAAAl0uXGTW0lRl7XjQTVCb8ceGWj86Fumor0rp0MzNbhMp9j_NcIkfZ28VatI19'
-SQUARE_LOCATION_ID = 'L0VHMSZC0YAWW'
+# SQUARE_APPLICATION_ID = 'sandbox-sq0idb-I-uo9lQsYWtltYrCGQpuYg'
+# SQUARE_ACCESS_TOKEN = 'EAAAl0uXGTW0lRl7XjQTVCb8ceGWj86Fumor0rp0MzNbhMp9j_NcIkfZ28VatI19'
+# SQUARE_LOCATION_ID = 'L0VHMSZC0YAWW'
+SQUARE_ACCESS_TOKEN = 'EAAAl1OOVMrHJphpTKaP-HedDQQ5tqARCHldYAU_UplxtTnbg-OS-IvprQOcuVno'
+
+AUTH_USER_MODEL = 'PSMApp.EmployeeInfo'

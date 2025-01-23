@@ -13,7 +13,7 @@ class ProductInfo(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.ForeignKey(CategoryInfo, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     product_image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

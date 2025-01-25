@@ -4,21 +4,29 @@ from django.db import models
 # カテゴリモデル
 class CategoryInfo(models.Model):
     id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    category_name = models.CharField(verbose_name ='カテゴリ名',max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True,verbose_name="作成日") 
+    updated_at = models.DateTimeField(auto_now=True,verbose_name="更新日")
+
+    class Meta:
+        verbose_name = 'カテゴリ情報'
+        verbose_name_plural = 'カテゴリ一覧'
 
     def __str__(self):
         return self.category_name
 # 商品モデル
 class ProductInfo(models.Model):
     id = models.AutoField(primary_key=True)
-    category = models.ForeignKey(CategoryInfo, on_delete=models.CASCADE)
-    product_name = models.CharField(max_length=255)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
+    category = models.ForeignKey(CategoryInfo, on_delete=models.CASCADE,verbose_name="カテゴリ")
+    product_name = models.CharField(max_length=255,verbose_name="商品名")
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2,default=0.00,verbose_name="価格")
     product_image = models.ImageField(upload_to='product_images/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True,verbose_name="作成日")
+    updated_at = models.DateTimeField(auto_now=True,verbose_name="更新日")
+
+    class Meta:
+        verbose_name = '商品情報'
+        verbose_name_plural = '商品一覧'
 
     def __str__(self):
         return self.product_name
@@ -47,11 +55,14 @@ class SettlementInfo(models.Model):
 # 決済商品一覧モデル
 class SettlementProductList(models.Model):
     id = models.AutoField(primary_key=True)
-    settlement = models.ForeignKey(SettlementInfo, on_delete=models.CASCADE)
-    product = models.ForeignKey(ProductInfo, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
+    settlement = models.ForeignKey(SettlementInfo, on_delete=models.CASCADE,verbose_name="決済方法")
+    product = models.ForeignKey(ProductInfo, on_delete=models.CASCADE,verbose_name="商品")
+    quantity = models.IntegerField(default=1, verbose_name='数量')
+    created_at = models.DateTimeField(auto_now_add=True,verbose_name="作成日")
+    updated_at = models.DateTimeField(auto_now=True,verbose_name="更新日")
+    class Meta:
+        verbose_name = '決済商品一覧情報'
+        verbose_name_plural = '決済商品一覧'
     def __str__(self):
         return f"Settlement {self.settlement.id} - Product {self.product.product_name}"
 # 従業員モデル

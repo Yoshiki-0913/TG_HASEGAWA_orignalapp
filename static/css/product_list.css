@@ -3,15 +3,17 @@
 /* 商品グリッド */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);  /* 5列 */
-  gap: 20px;
-  padding: 20px;
-  justify-items: center;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 20px; 
+  padding: 20px; 
+  box-sizing: border-box; 
+  max-width: 75%; 
+  margin: 0 auto; /
 }
 
-/* 商品カード */
 .product-card {
-  width: 180px;
+  width: 100%; 
+  max-width: 180px; 
   text-align: center;
   border: 1px solid #ccc;
   padding: 15px;
@@ -23,6 +25,12 @@
 
 .product-card:hover {
   transform: scale(1.05);
+}
+
+.container {
+  max-width: 1200px; /* 必要なら適切な幅に調整 */
+  margin: 0 auto; /* 中央寄せ */
+  padding: 0 20px;
 }
 
 .product-card img {
@@ -69,8 +77,11 @@
 
 /* ページネーション */
 .pagination {
-  text-align: center;
+  display: flex;  /* 横並びで表示 */
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
+  min-height: 40px;  /* 最小高さを設定 */
 }
 
 .pagination a, .pagination span {
@@ -91,4 +102,50 @@
 .pagination a:hover {
   background-color: #0034C2;
   color: white;
+}
+
+.quantity-controller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.quantity-controller button {
+  width: 30px;
+  height: 30px;
+  background-color: #001F8E;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.quantity-controller button:hover {
+  background-color: #0034C2;
+}
+
+.quantity-controller input {
+  width: 50px; /* 2桁の数値が収まる幅 */
+  height: 30px;
+  text-align: center; /* 数値を中央揃え */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 0 5px; /* ボタンとの間隔 */
+}
+
+#total-price {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.settlement-bar{
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
 }

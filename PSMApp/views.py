@@ -16,12 +16,14 @@ from django.views import View
 from square.client import Client
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
+from PSMApp.models import ProductInfo
 
 class ProductListView(ListView):
     model = ProductInfo
     template_name = 'product_list.html'
     context_object_name = 'products'
-    paginate_by = 10  # 1ページあたり10件表示
+    paginate_by = 10  
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -99,7 +101,7 @@ def handle_cash_settlement(request):
             selected_products = body.get('selected_products', [])
 
             # 合計金額を取得し数値型に変換
-            settlement_amount = float(settlement_amount) if settlement_amount else 0  # 数値に変換
+            settlement_amount = float(settlement_amount) if settlement_amount else 0  
 
 
             # エラー処理: 金額が無効の場合

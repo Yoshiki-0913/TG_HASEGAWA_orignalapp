@@ -123,26 +123,22 @@ def handle_cash_settlement(request):
                     product=product,
                     quantity=quantity
                 )
-
-            # # その他の処理
-            # selected_products = body.get('selected_products', [])
-
-            # settlement = SettlementInfo.objects.create(
-            #     employee=request.user,
-            #     settlement_amount=settlement_amount,
-            #     settlement_method='cash'
-            # )
-
-            # for product_id, quantity in selected_products:
-            #     product = ProductInfo.objects.get(id=product_id)
-            #     SettlementProductList.objects.create(
-            #         settlement=settlement,
-            #         product=product,
-            #         quantity=quantity
-            #     )
-
             return JsonResponse({'status': 'success', 'message': '現金決済が完了しました！'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': '無効なリクエストです。'})
+
+def save_selection(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        request.session['selected_products'] = data['selectedProducts']
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
+
+def confirm_view(request):
+    selected_products = request.session.get('selected_products', [])
+    Notaxtotal_price = sum(item['quantity'] * item['price'] for item in selected_products)
+    tax = int(Notaxtotal_price*0.1)
+    total_price = int(Notaxtotal_price*1.1)
+    return render(request, 'confirm.html', {'selected_products': selected_products, 'Notaxtotal_price':Notaxtotal_price, 'total_price': total_price, 'tax':tax})

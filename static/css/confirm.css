@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+}
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 80%;
+  text-align: center;
+  font-size: 18px;
+}
+th, td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+th {
+  background-color: #f4f4f4;
+  font-size: 20px;
+}
+td {
+  font-size: 18px;
+}
+div {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: right;
+}
+#payment-form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#card-container {
+  width: 300px;
+}
+#card-button {
+  background-color: #001F8E;
+  color: white;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#card-button:hover {
+  background-color: #0034C2;
+}

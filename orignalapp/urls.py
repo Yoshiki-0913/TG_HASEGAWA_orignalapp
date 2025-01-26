@@ -21,12 +21,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from PSMApp.views import handle_cash_settlement
 
+
 urlpatterns = [
     path('', views.ProductListView.as_view(), name='product_list'),
     path('admin/', admin.site.urls),
-    path('confirm', views.ConfirmView.as_view(), name="confirm"),
+    path('confirm/', views.confirm_view, name="confirm"),
     path('process_payment/', views.ProcessPaymentView.as_view(), name='process_payment'),  # 決済処理
     path('handle_cash_settlement/', handle_cash_settlement, name='handle_cash_settlement'),
+    path('save_selection/', views.save_selection, name='save_selection')
 ]
 
 # 開発環境でのメディアファイルの配信設定

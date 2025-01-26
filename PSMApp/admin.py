@@ -10,14 +10,7 @@ class CategoryInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'category_name', 'created_at', 'updated_at')
 
 class ProductInfoAdmin(admin.ModelAdmin):
-    # list_display = ('id', 'product_name', 'unit_price', 'category', 'product_image_tag', 'created_at', 'updated_at')
     list_display = ('id', 'product_name', 'unit_price', 'category', 'created_at', 'updated_at')
-    # def product_image_tag(self, obj):
-    #     if obj.product_image:
-    #         return format_html('<img src="{}" width="50" height="50" />', obj.product_image.url)
-    #     return 'No Image'
-
-    # product_image_tag.short_description = 'Product Image'
 
 class SettlementProductListAdmin(admin.ModelAdmin):
     list_display = ('id', 'settlement', 'product', 'created_at', 'updated_at')
@@ -37,7 +30,7 @@ class SettlementInfoAdmin(admin.ModelAdmin):
     def weekly_stats_view(self, request):
         # 過去1週間のデータを取得
         today = now().date()
-        one_week_ago = today - timedelta(days=7)
+        one_week_ago = today - timedelta(days=6)
         settlements = SettlementInfo.objects.filter(
             settlement_date__range=(one_week_ago, today),
             settlement_method='card'

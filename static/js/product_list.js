@@ -16,7 +16,7 @@ function updateTotalPrice() {
 
   // 合計金額を表示
   const totalElement = document.getElementById('total-price');
-  totalElement.textContent = `合計金額: ${Math.floor(totalPrice)}円(税込み)`;
+  totalElement.textContent = `${Math.floor(totalPrice)}`;
 }
 
 // 増加ボタンが押されたとき
@@ -89,9 +89,61 @@ document.addEventListener('DOMContentLoaded', () => {
               console.log("Total Price:2", total_price);
 
           }
-      } else if (selectedMethod === 'card') {
-          settlementForm.submit(); // カード決済は通常のフォーム送信
-      } else {
+      } 
+      else if (selectedMethod === 'card') 
+      {
+          const selectedProducts = [];
+              // 各商品をループ
+          document.querySelectorAll('.product-card').forEach(card => 
+          {
+            const productId = card.getAttribute('data-product-id');
+            const productName = card.querySelector('.product-name').innerText;
+            console.log("Name:", productName);
+            const quantityInput = card.querySelector('.quantity-input');
+            const quantity = parseInt(quantityInput.value, 10);
+            const price = parseFloat(card.querySelector('.product-price').getAttribute('data-price'));
+            if (quantity > 0) 
+            {
+              selectedProducts.push({
+              id: productId,
+              name: productName,
+              quantity: quantity,
+              price: price,});
+            }
+          });
+          console.log(selectedProducts)
+
+          // サーバーに送信（JSONデータ）
+          fetch('/save_selection/', 
+          {
+            method: 'POST',
+            headers: 
+            {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+            body: JSON.stringify({ selectedProducts }),
+          })
+        .then(response => response.json())
+        .then(data => 
+        {
+          if (data.status === 'success') 
+            {
+              window.location.href = '/confirm'; // 確認ページに遷移
+            } 
+            else 
+            {
+              alert('エラーが発生しました: ' + data.message);
+            }
+        })
+        .catch(error => 
+        {
+          console.error('Error:', error);
+          alert('送信中にエラーが発生しました。');
+        });
+      } 
+      else
+      {
           alert('決済方法を選択してください。');
       }
   });

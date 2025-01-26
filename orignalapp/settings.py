@@ -17,7 +17,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -27,7 +26,7 @@ SECRET_KEY = 'django-insecure-&ln$!lwb4bhu*83odg(^36vwk@oos3rd5xygw5^d&0b)^=b4d=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -140,9 +139,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Square決済の実装
-# SQUARE_APPLICATION_ID = 'sandbox-sq0idb-I-uo9lQsYWtltYrCGQpuYg'
-# SQUARE_ACCESS_TOKEN = 'EAAAl0uXGTW0lRl7XjQTVCb8ceGWj86Fumor0rp0MzNbhMp9j_NcIkfZ28VatI19'
-# SQUARE_LOCATION_ID = 'L0VHMSZC0YAWW'
-SQUARE_ACCESS_TOKEN = 'EAAAl1OOVMrHJphpTKaP-HedDQQ5tqARCHldYAU_UplxtTnbg-OS-IvprQOcuVno'
+SQUARE_APPLICATION_ID = 'sandbox-sq0idb-I-uo9lQsYWtltYrCGQpuYg'
+SQUARE_ACCESS_TOKEN = 'EAAAl0uXGTW0lRl7XjQTVCb8ceGWj86Fumor0rp0MzNbhMp9j_NcIkfZ28VatI19'
+SQUARE_LOCATION_ID = 'L0VHMSZC0YAWW'
+# SQUARE_ACCESS_TOKEN = 'EAAAl1OOVMrHJphpTKaP-HedDQQ5tqARCHldYAU_UplxtTnbg-OS-IvprQOcuVno'
 
 AUTH_USER_MODEL = 'PSMApp.EmployeeInfo'

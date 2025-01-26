@@ -9,7 +9,6 @@
 
 {% block content %}
 <h2>商品一覧</h2>
-
 <div class="search-bar">
     <form method="get">
         <select name="category">
@@ -81,12 +80,12 @@
     </form>
 </div>
 <div>
-    <p>現在のページ: {{ products.number }}</p>
-    <p>総ページ数: {{ products.paginator.num_pages }}</p>
-    <p>総アイテム数: {{ products.paginator.count }}</p>
+    <p>現在のページ: {{ products.number|default:"なし" }}</p>
+    <p>総ページ数: {{ products.paginator.num_pages|default:"なし" }}</p>
+    <p>総アイテム数: {{ products.paginator.count|default:"なし" }}</p>
 </div>
 <div>
-    <p>has_previous: {{ products.has_previous }}</p>
-    <p>has_next: {{ object_list.has_next }}</p>
+    <p>has_previous: {{ products.has_previous|default:"なし" }}</p>
+    <p>has_next: {{ products.has_next|default:"なし" }}</p>
 </div>
 {% endblock %} 

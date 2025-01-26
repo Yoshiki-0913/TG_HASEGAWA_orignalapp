@@ -34,17 +34,20 @@ class ProductListView(ListView):
         if category_id:
             queryset = queryset.filter(category__id=category_id)
 
-        return queryset
+        return queryset.order_by('created_at')  # 並び替えを追加
     
+    '''
     def settlement_selection_view(request):
         payment_methods = SettlementInfo.PAYMENT_METHOD_CHOICES  # 選択肢を取得
         context = {
             'payment_methods': payment_methods,  # テンプレートに渡す
         }
         return render(request, 'product_list.html', context)
+    '''
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['categories'] = CategoryInfo.objects.all()  # カテゴリ一覧を取得
         context['payment_methods'] = SettlementInfo.PAYMENT_METHOD_CHOICES
         return context

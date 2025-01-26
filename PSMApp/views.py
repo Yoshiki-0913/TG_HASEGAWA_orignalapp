@@ -16,6 +16,16 @@ from django.views import View
 from square.client import Client
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import AuthenticationForm
+
+class LoginView(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+
+class LogoutView(LoginRequiredMixin, LogoutView):
+    template_name = 'login.html'
 
 class ProductListView(ListView):
     model = ProductInfo

@@ -1,0 +1,23 @@
+<!-- product_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ログイン{% endblock %}
+
+{% block stylesheet %}
+<link href="{% static 'css/product_list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<article class="mt-4 w-75 m-auto">
+  <h2>ログイン</h2>
+  <form method="post">
+  {% csrf_token %}
+    {{ form }}
+    <div class="mt-4 text-center">
+      <input type="submit" class="btn btn-primary" value="ログイン">
+    </div>
+  </form>
+</article>
+
+
+{% endblock %} 

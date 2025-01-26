@@ -146,3 +146,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SQUARE_ACCESS_TOKEN = 'EAAAl1OOVMrHJphpTKaP-HedDQQ5tqARCHldYAU_UplxtTnbg-OS-IvprQOcuVno'
 
 AUTH_USER_MODEL = 'PSMApp.EmployeeInfo'
+
+# ログイン認証
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'product_list'
+LOGOUT_REDIRECT_URL = 'login'
